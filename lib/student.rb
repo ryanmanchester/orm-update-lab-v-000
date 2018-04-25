@@ -33,7 +33,6 @@ class Student
   end
 
   def self.new_from_db(row)
-    #binding.pry
     new_student = Student.new(row[1], row[2])
     new_student.id = row[0]
     new_student
@@ -57,6 +56,7 @@ class Student
     INSERT INTO students (name, grade)
     VALUES (?, ?)
     SQL
+
     DB[:conn].execute(sql, self.name, self.grade)
     @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0]
   end
@@ -67,6 +67,7 @@ def update
   UPDATE students SET name = ?, grade = ?
   WHERE id = ?
   SQL
+
   DB[:conn].execute(sql, self.name, self.grade, self.id)
 end
 
